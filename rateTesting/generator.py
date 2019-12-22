@@ -6,7 +6,7 @@ User base is demonstrated by logistics growth model
 from .database import Database
 from .updater import update_rate
 from math import e as euler_num
-from random import randint
+from random import randint, random
 from uuid import uuid4
 
 db = Database.shared()
@@ -37,7 +37,8 @@ async def increase_post_count_per_tag():
         prevPostCount = 1
         try:
             prevPostCount = db.numOfPosts[x]
-            db.numOfPosts[x] = round(db.numOfPosts[x] * 1.2)  # TODO Need better generator for randomness
+            # TODO Need better generator for randomness
+            db.numOfPosts[x] = round(db.numOfPosts[x] * (db.userCount / db.tagCount * (random() + 1) ))
             update_rate(prevPostCount, x)
         except IndexError:
             db.numOfPosts.append(1)
