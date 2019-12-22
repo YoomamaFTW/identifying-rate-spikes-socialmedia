@@ -21,8 +21,9 @@ import asyncio
 
 # Settings
 timeSpeed = 1  # 1 virtual hour / 1 real second. Default: 1
-interval = 0.5  # Choosing at 30 virtual minutes / 1 real second. Default: 0.5
+interval = 0.5  # Choosing tag(s) at 30 virtual minutes / 1 real second. Default: 0.5
 maxPopulation = 1000000000  # Max population of site. Default: 1,000,000,000
+number_of_tags_to_choose = 1  # The number of tags the chooser should select. Default: 1
 
 # Run
 if __name__ == "__main__":
@@ -32,7 +33,7 @@ if __name__ == "__main__":
         print("DB already initialized.")
     db = Database.shared()
     print("Starting ML")
-    asyncio.run(chooser_run(timeSpeed, interval))
+    asyncio.run(chooser_run(timeSpeed, interval, number_of_tags_to_choose))
     print("Starting Generators and Updaters")
     while True:
         db.time += timeSpeed

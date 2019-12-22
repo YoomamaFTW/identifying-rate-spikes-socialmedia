@@ -5,22 +5,23 @@ User base is demonstrated by logistics growth model
 """
 from .database import Database
 from .updater import update_rate
-from math import e as euler_num
+from math import e as eulers_num
 from random import randint, random
 from uuid import uuid4
 
 db = Database.shared()
+bc = -.000000002  # -.004 * 0.00000005
 
 
 async def generate_humans(max_pop):
     # Generates users logistically
-    db.userCount = max_pop / (1 + 999 * (euler_num ** (0.00000005 * db.time)))
+    db.userCount = max_pop / (1 + 99999 * (eulers_num ** (bc * db.time)))
 
 
 async def generate_tags():
     # Generate tags multiplicatively then linearly, kinda
     if db.tagCount < 15000:
-        newCount = round(db.tagCount * 1.185 + 1)
+        newCount = int(db.tagCount * 1.185 + 1)
         difference = newCount - db.tagCount
         for x in range(difference):
             db.tags.append(str(uuid4()))
@@ -38,7 +39,7 @@ async def increase_post_count_per_tag():
         try:
             prevPostCount = db.numOfPosts[x]
             # TODO Need better generator for randomness
-            db.numOfPosts[x] = round(db.numOfPosts[x] * (db.userCount / db.tagCount * (random() + 1) ))
+            db.numOfPosts[x] = int(db.numOfPosts[x] * (db.userCount / db.tagCount * (random() + 1) ))
             update_rate(prevPostCount, x)
         except IndexError:
             db.numOfPosts.append(1)
