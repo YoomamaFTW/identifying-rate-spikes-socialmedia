@@ -32,4 +32,10 @@ Consider this method when analyzing big spikes that are worthwhile to dive into;
 
 ----
 ## License
-The code is licensed under the MIT License, copyleft without need for attribution. Let me know if you use this!
+This code is licensed under the MIT License, copyleft without need for attribution. Let me know if you use this!
+
+----
+## TODO
+- Make better predictions
+- Make three separate repos: Python, Cython, and C/C++ (can't decide now)
+- Make the generator feel more realistic
