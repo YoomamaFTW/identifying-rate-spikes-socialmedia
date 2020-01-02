@@ -2,6 +2,8 @@
 
 The purpose of this algorithm is to find a better way to identify trending posts on social media sites that have tags included.
 
+The main Python module is in main.py and rateTesting directory; these have comments with how to fine tune the model. You can find Python, C++, and C in [lang-versions](https://github.com/YoomamaFTW/identifying-rate-spikes-socialmedia/tree/master/lang-versions) directory.
+
 Table of Contents:
 - Why Should You Implement It + Example
 - How it works
@@ -24,6 +26,8 @@ The algorithm works by constantly updating the rate of new posts with a certain 
 
 Once a "rate spike" is identified, a break/tick will be made, identifying the name of the tag, the usual rate, the number of posts, and the mean of the spiked rates. The algorithm successfully identified the tag which would contain a number of posts that can be selected from (not included in this library, of course).
 
+The algorithm is actually just a linear regression model. Actually, it only uses the slope, m, and compares the slopes of each tag for a certain period of time. The greater the slope, the more likely it's "trending".
+
 ----
 ## Who Should and How to Integrate
 Those who should integrate this methodology are users who have a continuous flow of information/data.
@@ -37,5 +41,6 @@ This code is licensed under the MIT License, copyleft without need for attributi
 ----
 ## TODO
 - Make better predictions
-- Make three separate repos: Python, Cython, and C/C++ (can't decide now)
+- Make three separate files: Python, Cython, and C++
+    - Essentially, a file per language (or dir. I just compressed the Python)
 - Make the generator feel more realistic
