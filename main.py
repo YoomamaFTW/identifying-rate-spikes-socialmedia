@@ -17,7 +17,6 @@ from rateTesting.database import Database
 from rateTesting.generator import generate_humans, generate_tags, increase_post_count_per_tag
 from rateTesting.chooser import main as chooser_run
 from time import sleep
-import asyncio
 
 # Settings
 timeSpeed = 1  # 1 virtual hour / 1 real second. Default: 1
@@ -32,12 +31,11 @@ if __name__ == "__main__":
     except Exception:
         print("DB already initialized.")
     db = Database.shared()
-    print("Starting ML")
-    asyncio.run(chooser_run(timeSpeed, interval, number_of_tags_to_choose))
-    print("Starting Generators and Updaters")
+    print("Starting ML, Generators, and Updaters")
     while True:
         db.time += timeSpeed
         sleep(timeSpeed)
-        asyncio.run(generate_humans(maxPopulation))
-        asyncio.run(generate_tags())
-        asyncio.run(increase_post_count_per_tag())
+        generate_humans(maxPopulation)
+        generate_tags()
+        increase_post_count_per_tag()
+        chooser_run(timeSpeed, interval, number_of_tags_to_choose)

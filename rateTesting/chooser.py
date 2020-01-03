@@ -1,20 +1,11 @@
-import asyncio
 from .database import Database
 from statistics import mean
-
 db = Database.shared()
 
 
-async def main(speed, interval, num_of_tags, posts_threshold=15):
-    await asyncio.sleep(speed * 10)
-    min_speed = 0.001
-    old_speed = speed * interval
+def main(speed, interval, num_of_tags, posts_threshold=15):
     cycle = 1
     while True:
-        if old_speed < min_speed:
-            await asyncio.sleep(min_speed)
-        else:
-            await asyncio.sleep(old_speed)
         cycle_start_time = db.time
 
         tags_rates = {}

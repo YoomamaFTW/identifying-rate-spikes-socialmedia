@@ -13,12 +13,12 @@ db = Database.shared()
 bc = -.000000002  # -.004 * 0.00000005
 
 
-async def generate_humans(max_pop):
+def generate_humans(max_pop):
     # Generates users logistically
     db.userCount = max_pop / (1 + 99999 * (eulers_num ** (bc * db.time)))
 
 
-async def generate_tags():
+def generate_tags():
     # Generate tags multiplicatively then linearly, kinda
     if db.tagCount < 15000:
         newCount = int(db.tagCount * 1.185 + 1)
@@ -33,7 +33,7 @@ async def generate_tags():
         db.tagCount += difference
 
 
-async def increase_post_count_per_tag():
+def increase_post_count_per_tag():
     for x in range(db.tagCount):
         prevPostCount = 1
         try:
